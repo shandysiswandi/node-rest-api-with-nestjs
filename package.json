@@ -1,5 +1,5 @@
 {
-  "name": "nest-rest-api",
+  "name": "node-rest-api-with-nestjs",
   "version": "1.0.0",
   "description": "RESTful API using NestJS",
   "author": "",
