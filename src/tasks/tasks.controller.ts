@@ -5,10 +5,16 @@ import {
   Get,
   HttpCode,
   Param,
+  Patch,
   Post,
   Put,
+  Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { GetTaskFilterDto } from './dto/get-tasks-filter.dto';
+import { UpdateFieldTaskDto } from './dto/update-field-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './task.model';
 import { TasksService } from './tasks.service';
@@ -18,14 +24,19 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   /**
-   * Get all tasks
+   * Get all tasks or get all tasks filter by query parameters
    *
    * @Route GET /tasks
+   * @Query GetTaskFilterFto taskFilter
    * @Code 200
    * @return Task[]
    */
   @Get()
-  getAllTasks(): Task[] {
+  getTasks(@Query(ValidationPipe) taskFilter: GetTaskFilterDto): Task[] {
+    if (Object.keys(taskFilter).length) {
+      return this.tasksService.getTasksWithFilters(taskFilter);
+    }
+
     return this.tasksService.getAllTasks();
   }
 
@@ -38,6 +49,7 @@ export class TasksController {
    * @return Task
    */
   @Post()
+  @UsePipes(ValidationPipe)
   @HttpCode(201)
   createTask(@Body() createTaskDto: CreateTaskDto): Task {
     return this.tasksService.createTask(createTaskDto);
@@ -66,14 +78,26 @@ export class TasksController {
    * @return Task
    */
   @Put(':id')
+  @UsePipes(ValidationPipe)
   updateTaskById(
     @Param('id') id: string,
     @Body() updateTaskDto: UpdateTaskDto,
   ): Task {
-    console.log('ID: ', id);
-    console.log('data: ', updateTaskDto);
-
     return this.tasksService.updateTaskById(id, updateTaskDto);
+  }
+
+  /**
+   * Update particular field of task
+   *
+   * @param id
+   */
+  @Patch(':id')
+  @UsePipes(ValidationPipe)
+  updateFieldTaskById(
+    @Param('id') id: string,
+    @Body() updateFieldTaskDto: UpdateFieldTaskDto,
+  ): Task {
+    return this.tasksService.updateFieldTaskById(id, updateFieldTaskDto);
   }
 
   /**
