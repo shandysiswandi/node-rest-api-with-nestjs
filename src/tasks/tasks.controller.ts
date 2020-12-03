@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Put,
@@ -61,7 +62,7 @@ export class TasksController {
    * @return Task
    */
   @Get(':id')
-  getTaskById(@Param('id') id: string): Promise<Task> {
+  getTaskById(@Param('id', ParseUUIDPipe) id: string): Promise<Task> {
     return this.tasksService.getTaskById(id);
   }
 
@@ -77,7 +78,7 @@ export class TasksController {
   @Put(':id')
   @UsePipes(ValidationPipe)
   updateTaskById(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() updateTaskDto: UpdateTaskDto,
   ): Promise<Task> {
     return this.tasksService.updateTaskById(id, updateTaskDto);
@@ -91,7 +92,7 @@ export class TasksController {
   @Patch(':id')
   @UsePipes(ValidationPipe)
   updateFieldTaskById(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() updateFieldTaskDto: UpdateFieldTaskDto,
   ): Promise<Task> {
     return this.tasksService.updateFieldTaskById(id, updateFieldTaskDto);
@@ -107,7 +108,7 @@ export class TasksController {
    */
   @Delete(':id')
   @HttpCode(204)
-  deleteTaskById(@Param('id') id: string) {
+  deleteTaskById(@Param('id', ParseUUIDPipe) id: string) {
     return this.tasksService.deleteTaskById(id);
   }
 }
