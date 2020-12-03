@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  postgres:
+    container_name: nest-pg
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: nest-pg
+      POSTGRES_PASSWORD: nest-pg
+      POSTGRES_DB: nest-pg
+    volumes:
+      - pgdata:/var/lib/postgres/data
+    ports:
+      - "5014:5432"
+    restart: unless-stopped
+
+volumes:
+  pgdata:
