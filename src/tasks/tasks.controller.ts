@@ -16,7 +16,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTaskFilterDto } from './dto/get-tasks-filter.dto';
 import { UpdateFieldTaskDto } from './dto/update-field-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { Task } from './task.model';
+import { Task } from './task.entity';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')
@@ -32,12 +32,10 @@ export class TasksController {
    * @return Task[]
    */
   @Get()
-  getTasks(@Query(ValidationPipe) taskFilter: GetTaskFilterDto): Task[] {
-    if (Object.keys(taskFilter).length) {
-      return this.tasksService.getTasksWithFilters(taskFilter);
-    }
-
-    return this.tasksService.getAllTasks();
+  getTasks(
+    @Query(ValidationPipe) taskFilter: GetTaskFilterDto,
+  ): Promise<Task[]> {
+    return this.tasksService.getTasks(taskFilter);
   }
 
   /**
@@ -50,8 +48,7 @@ export class TasksController {
    */
   @Post()
   @UsePipes(ValidationPipe)
-  @HttpCode(201)
-  createTask(@Body() createTaskDto: CreateTaskDto): Task {
+  createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
     return this.tasksService.createTask(createTaskDto);
   }
 
@@ -64,7 +61,7 @@ export class TasksController {
    * @return Task
    */
   @Get(':id')
-  getTaskById(@Param('id') id: string): Task {
+  getTaskById(@Param('id') id: string): Promise<Task> {
     return this.tasksService.getTaskById(id);
   }
 
@@ -82,7 +79,7 @@ export class TasksController {
   updateTaskById(
     @Param('id') id: string,
     @Body() updateTaskDto: UpdateTaskDto,
-  ): Task {
+  ): Promise<Task> {
     return this.tasksService.updateTaskById(id, updateTaskDto);
   }
 
@@ -96,12 +93,12 @@ export class TasksController {
   updateFieldTaskById(
     @Param('id') id: string,
     @Body() updateFieldTaskDto: UpdateFieldTaskDto,
-  ): Task {
+  ): Promise<Task> {
     return this.tasksService.updateFieldTaskById(id, updateFieldTaskDto);
   }
 
   /**
-   * Get all tasks
+   * Delete task by ID
    *
    * @Route DELETE /tasks/:id
    * @param string id
@@ -111,6 +108,6 @@ export class TasksController {
   @Delete(':id')
   @HttpCode(204)
   deleteTaskById(@Param('id') id: string) {
-    this.tasksService.deleteTaskById(id);
+    return this.tasksService.deleteTaskById(id);
   }
 }
