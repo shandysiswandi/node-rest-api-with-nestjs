@@ -20,7 +20,7 @@ async function bootstrap() {
   // app.use(csurf());
 
   // listen
-  await app.listen(process.env.PORT);
+  await app.listen(process.env.APP_PORT);
 }
 
 bootstrap();
