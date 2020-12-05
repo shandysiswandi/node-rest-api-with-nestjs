@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import { middlewares, interceptors } from './core';
+import { middlewares, validations } from './common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,9 +11,9 @@ async function bootstrap() {
   middlewares(app);
 
   /**
-   * Call list of interceptor
+   * Call list of validation-pipe
    */
-  interceptors(app);
+  validations(app);
 
   await app.listen(process.env.APP_PORT, () => {
     if (process.env.APP_ENV === 'local') {
