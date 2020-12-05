@@ -15,18 +15,11 @@ async function bootstrap() {
    */
   interceptors(app);
 
-  await app.listen(process.env.APP_PORT);
-}
-
-/**
- * Run function bootstrap
- */
-bootstrap()
-  .then(() => {
+  await app.listen(process.env.APP_PORT, () => {
     if (process.env.APP_ENV === 'local') {
       console.log(`Running on http://localhost:${process.env.APP_PORT}`);
     }
-  })
-  .catch((e) => {
-    console.log(e);
   });
+}
+
+bootstrap();
