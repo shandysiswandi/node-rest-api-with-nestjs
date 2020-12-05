@@ -12,4 +12,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   database: process.env.DB_NAME,
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: process.env.APP_ENV === 'local',
+  migrationsTableName: 'migrations',
+  ssl: process.env.APP_ENV === 'production',
 };
