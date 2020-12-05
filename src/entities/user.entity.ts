@@ -1,18 +1,8 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import Base from './entity';
 
 @Entity('users')
-export class User extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class User extends Base {
   @Column({ length: 100 })
   name: string;
 
@@ -24,13 +14,4 @@ export class User extends BaseEntity {
 
   @Column()
   password: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt?: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt?: Date;
-
-  @DeleteDateColumn({ name: 'deleted_at' })
-  deletedAt?: Date;
 }

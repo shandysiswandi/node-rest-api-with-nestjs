@@ -1,19 +1,9 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { TaskStatus } from '../app/types/task-status.enum';
+import Base from './entity';
 
 @Entity('tasks')
-export class Task extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Task extends Base {
   @Column({ length: 100 })
   title: string;
 
@@ -22,13 +12,4 @@ export class Task extends BaseEntity {
 
   @Column()
   status: TaskStatus;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt?: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt?: Date;
-
-  @DeleteDateColumn({ name: 'deleted_at' })
-  deletedAt?: Date;
 }
