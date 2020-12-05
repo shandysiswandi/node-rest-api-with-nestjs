@@ -12,4 +12,9 @@ export class Task extends Base {
 
   @Column()
   status: TaskStatus;
+
+  constructor(partial?: Partial<Task>) {
+    super();
+    Object.assign(this, partial);
+  }
 }

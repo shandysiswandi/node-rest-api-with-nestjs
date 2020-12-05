@@ -5,12 +5,13 @@ import { CreateTaskDto } from '../dto/task/create-task.dto';
 import { UpdateTaskDto } from '../dto/task/update-task.dto';
 import { GetTaskFilterDto } from '../dto/task/get-tasks-filter.dto';
 import { UpdateFieldTaskDto } from '../dto/task/update-field-task.dto';
-import { Task } from '../../entities/task.entity';
+import { Task } from 'src/entities/task.entity';
 
 @Injectable()
 export class TasksService {
   constructor(
-    @InjectRepository(TaskRepository) private taskRepository: TaskRepository,
+    @InjectRepository(TaskRepository)
+    private readonly taskRepository: TaskRepository,
   ) {}
 
   // getTasks
@@ -95,7 +96,7 @@ export class TasksService {
 
   // deleteTaskById
   async deleteTaskById(id: string): Promise<void> {
-    const result = await this.taskRepository.delete(id);
+    const result = await this.taskRepository.softDelete(id);
 
     if (result.affected === 0) {
       throw new NotFoundException(`Task with ID ${id} not found.`);
