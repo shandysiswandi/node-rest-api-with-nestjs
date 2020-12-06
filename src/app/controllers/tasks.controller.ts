@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   ParseUUIDPipe,
   Patch,
@@ -22,21 +23,25 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  getTasks(@Query() taskFilter: GetTaskFilterDto): Promise<Task[]> {
+  @HttpCode(200)
+  getTasks(@Query() taskFilter: GetTaskFilterDto) {
     return this.tasksService.getTasks(taskFilter);
   }
 
   @Post()
+  @HttpCode(201)
   createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
     return this.tasksService.createTask(createTaskDto);
   }
 
   @Get(':id')
+  @HttpCode(200)
   getTaskById(@Param('id', ParseUUIDPipe) id: string): Promise<Task> {
     return this.tasksService.getTaskById(id);
   }
 
   @Put(':id')
+  @HttpCode(200)
   updateTaskById(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateTaskDto: UpdateTaskDto,
@@ -45,6 +50,7 @@ export class TasksController {
   }
 
   @Patch(':id')
+  @HttpCode(200)
   updateFieldTaskById(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateFieldTaskDto: UpdateFieldTaskDto,
@@ -53,6 +59,7 @@ export class TasksController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
   deleteTaskById(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
     return this.tasksService.deleteTaskById(id);
   }
