@@ -4,6 +4,11 @@ import Base from './entity';
 
 @Entity('users')
 export class User extends Base {
+  constructor(partial?: Partial<User>) {
+    super();
+    Object.assign(this, partial);
+  }
+
   @Column({ length: 100 })
   name: string;
 
@@ -16,9 +21,4 @@ export class User extends Base {
   @Column()
   @Exclude()
   password: string;
-
-  constructor(partial?: Partial<User>) {
-    super();
-    Object.assign(this, partial);
-  }
 }
