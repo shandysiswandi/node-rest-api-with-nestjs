@@ -9,6 +9,8 @@ COPY .env-example .env
 
 RUN npm install
 RUN npm run typeorm migration:run
-RUN npm run start
+RUN npm run prebuild
+RUN npm run build
+RUN npm run start:prod
 
 EXPOSE 8080
