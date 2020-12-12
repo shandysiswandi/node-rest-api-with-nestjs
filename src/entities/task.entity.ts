@@ -4,17 +4,21 @@ import Base from './entity';
 
 @Entity('tasks')
 export class Task extends Base {
+  constructor(partial?: Partial<Task>) {
+    super();
+    Object.assign(this, partial);
+  }
+
   @Column({ length: 100 })
   title: string;
 
   @Column()
   description: string;
 
-  @Column()
+  @Column({
+    type: "enum",
+    enum: TaskStatus,
+    default: TaskStatus.OPEN
+  })
   status: TaskStatus;
-
-  constructor(partial?: Partial<Task>) {
-    super();
-    Object.assign(this, partial);
-  }
 }
