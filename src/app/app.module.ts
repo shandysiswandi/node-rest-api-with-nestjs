@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TasksModule } from 'src/app/task';
-import { AuthModule } from 'src/app/auth';
-import { UsersModule } from 'src/app/user';
-import { typeOrmConfig } from 'src/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TasksModule } from 'src/app/task/task.module';
+import { AuthModule } from 'src/app/auth/auth.module';
+import { UsersModule } from 'src/app/user/user.module';
+import { typeOrmConfig } from 'src/config/typeorm.config';
 
 @Module({
   imports: [
@@ -19,4 +19,4 @@ import { typeOrmConfig } from 'src/config';
   ],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
