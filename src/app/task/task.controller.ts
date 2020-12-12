@@ -10,13 +10,17 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { Task } from 'src/entities/task.entity';
-import { CreateTaskPayload, OptionalFieldTaskPayload, UpdateTaskPayload } from 'src/app/task/task.payload';
-import { TasksService } from 'src/app/task/task.service';
+import { Task } from 'src/entities';
+import {
+  CreateTaskPayload,
+  OptionalFieldTaskPayload,
+  UpdateTaskPayload,
+  TasksService,
+} from 'src/app/task';
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private readonly tasksService: TasksService) { }
+  constructor(private readonly tasksService: TasksService) {}
 
   @Get()
   async getTasks() {
@@ -39,17 +43,25 @@ export class TasksController {
   }
 
   @Put(':id')
-  async updateTaskById(@Param('id', ParseUUIDPipe) id: string, @Body() payload: UpdateTaskPayload): Promise<Task> {
+  async updateTaskById(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() payload: UpdateTaskPayload,
+  ): Promise<Task> {
     return await this.tasksService.updateById(id, payload);
   }
 
   @Patch(':id')
-  async updateFieldTaskById(@Param('id', ParseUUIDPipe) id: string, @Body() payload: OptionalFieldTaskPayload): Promise<Task> {
+  async updateFieldTaskById(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() payload: OptionalFieldTaskPayload,
+  ): Promise<Task> {
     return await this.tasksService.updateFieldById(id, payload);
   }
 
   @Delete(':id')
-  async deleteTaskById(@Param('id', ParseUUIDPipe) id: string): Promise<boolean> {
+  async deleteTaskById(
+    @Param('id', ParseUUIDPipe) id: string,
+  ): Promise<boolean> {
     return await this.tasksService.deleteById(id);
   }
 }

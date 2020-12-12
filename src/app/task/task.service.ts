@@ -1,13 +1,19 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { Task } from 'src/entities/task.entity';
-import { TaskRepository } from 'src/app/task/task.repository';
+import { Task } from 'src/entities';
 import { entityFields, isCanDelete, isCanGetID } from 'src/common';
-import { CreateTaskPayload, OptionalFieldTaskPayload, UpdateTaskPayload } from 'src/app/task/task.payload';
+import {
+  CreateTaskPayload,
+  OptionalFieldTaskPayload,
+  UpdateTaskPayload,
+  TaskRepository,
+} from 'src/app/task';
 
 @Injectable()
 export class TasksService {
-  constructor(@InjectRepository(TaskRepository) private readonly taskRepo: TaskRepository) { }
+  constructor(
+    @InjectRepository(TaskRepository) private readonly taskRepo: TaskRepository,
+  ) {}
 
   async getTasks(): Promise<Task[]> {
     return await this.taskRepo.find();
@@ -34,7 +40,10 @@ export class TasksService {
     return task;
   }
 
-  async updateFieldById(id: string, payload: OptionalFieldTaskPayload): Promise<Task> {
+  async updateFieldById(
+    id: string,
+    payload: OptionalFieldTaskPayload,
+  ): Promise<Task> {
     const task = await this.getById(id);
     await task.save(entityFields(payload));
     return task;

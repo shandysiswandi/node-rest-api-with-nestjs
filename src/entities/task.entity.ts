@@ -16,9 +16,9 @@ export class Task extends BaseEntity {
   description: string;
 
   @Column({
-    type: "enum",
+    type: 'enum',
     enum: TaskStatus,
-    default: TaskStatus.OPEN
+    default: TaskStatus.OPEN,
   })
   status: TaskStatus;
 }
