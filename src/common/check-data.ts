@@ -2,9 +2,7 @@ import { NotFoundException } from '@nestjs/common';
 import { UpdateResult } from 'typeorm';
 
 // for checking fields entity
-export function entityFields(
-  data: Record<string, unknown>,
-): Record<string, unknown> {
+export function entityFields(data: any) {
   for (const [key, value] of Object.entries(data)) {
     if (!value) delete data[key];
   }
@@ -12,10 +10,7 @@ export function entityFields(
 }
 
 // for check incomming argument ID is there in database `getOne`
-export function isCanGetID(
-  data: Record<string, unknown>,
-  id: number | string,
-): void {
+export function isCanGetID(data: any, id: number | string): void {
   if (!data) throw new NotFoundException(`The given id '${id}' is not found`);
 }
 
