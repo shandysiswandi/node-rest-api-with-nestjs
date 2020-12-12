@@ -1,9 +1,9 @@
 import { Column, Entity } from 'typeorm';
-import { TaskStatus } from '../types/task-status.enum';
-import Base from './entity';
+import { TaskStatus } from 'src/app/task/task.type';
+import BaseEntity from 'src/entities/entity';
 
 @Entity('tasks')
-export class Task extends Base {
+export class Task extends BaseEntity {
   constructor(partial?: Partial<Task>) {
     super();
     Object.assign(this, partial);

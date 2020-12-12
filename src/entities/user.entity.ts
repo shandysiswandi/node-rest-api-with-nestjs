@@ -1,9 +1,9 @@
 import { Exclude } from 'class-transformer';
 import { Column, Entity } from 'typeorm';
-import Base from './entity';
+import BaseEntity from 'src/entities/entity';
 
 @Entity('users')
-export class User extends Base {
+export class User extends BaseEntity {
   constructor(partial?: Partial<User>) {
     super();
     Object.assign(this, partial);
