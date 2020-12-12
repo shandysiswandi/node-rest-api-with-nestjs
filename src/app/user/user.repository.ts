@@ -3,10 +3,13 @@ import {
   ConflictException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { User } from 'src/entities';
-import { hashBcrypt } from 'src/common';
-import { ErrorCodeTypeORM, ErrorMessageTypeORM } from 'src/types';
-import { RegisterPayload, LoginPayload } from 'src/app/auth';
+import { User } from 'src/entities/user.entity';
+import { hashBcrypt } from 'src/common/bcrypt';
+import {
+  ErrorCodeTypeORM,
+  ErrorMessageTypeORM,
+} from 'src/types/error-typeorm.enum';
+import { RegisterPayload, LoginPayload } from 'src/app/auth/auth.payload';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {

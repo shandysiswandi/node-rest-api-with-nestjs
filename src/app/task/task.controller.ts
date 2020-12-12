@@ -10,13 +10,13 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { Task } from 'src/entities';
+import { Task } from 'src/entities/task.entity';
 import {
   CreateTaskPayload,
   OptionalFieldTaskPayload,
   UpdateTaskPayload,
-  TasksService,
-} from 'src/app/task';
+} from 'src/app/task/task.payload';
+import { TasksService } from 'src/app/task/task.service';
 
 @Controller('tasks')
 export class TasksController {

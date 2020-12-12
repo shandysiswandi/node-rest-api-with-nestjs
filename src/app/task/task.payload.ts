@@ -1,5 +1,5 @@
 import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { TaskStatus } from 'src/app/task';
+import { TaskStatus } from 'src/app/task/task.type';
 
 // CreateTaskPayload
 export class CreateTaskPayload {

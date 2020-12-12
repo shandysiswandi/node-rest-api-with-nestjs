@@ -1,13 +1,13 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { Task } from 'src/entities';
-import { entityFields, isCanDelete, isCanGetID } from 'src/common';
+import { Task } from 'src/entities/task.entity';
+import { entityFields, isCanDelete, isCanGetID } from 'src/common/check-data';
+import { TaskRepository } from 'src/app/task/task.repository';
 import {
   CreateTaskPayload,
   OptionalFieldTaskPayload,
   UpdateTaskPayload,
-  TaskRepository,
-} from 'src/app/task';
+} from 'src/app/task/task.payload';
 
 @Injectable()
 export class TasksService {

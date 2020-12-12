@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from 'src/app/app.module';
-import { interceptors, middlewares, validations } from 'src/common';
+import { interceptors } from 'src/common/interceptor';
+import { validations } from 'src/common/validation';
+import { middlewares } from 'src/common/middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
